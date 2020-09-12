@@ -1,0 +1,83 @@
+﻿@using LXTHANG_10117004.Areas.Admin.Models
+@model LoginViewModel
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Login</title>
+    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <link rel="shortcut icon" href="~/Assets/Admin/images/favicon.ico">
+
+    <link href="~/Assets/Admin/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/Admin/css/metismenu.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/Admin/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/Admin/css/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+    <!-- Begin page -->
+    <div class="accountbg"></div>
+    <div class="home-btn d-none d-sm-block">
+        <a href="index.html" class="text-white"><i class="fas fa-home h2"></i></a>
+    </div>
+    <div class="wrapper-page">
+        <div class="card card-pages shadow-none">
+
+            <div class="card-body">
+                <div class="text-center m-t-0 m-b-15">
+                    <a href="#" class="logo logo-admin"><img src="assets/images/logo-dark.png" alt="" height="24"></a>
+                </div>
+                <h5 class="font-18 text-center font-weight-bold pb-4">Đăng nhập để tiếp tục Daxone</h5>
+                @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <form class="form-horizontal m-t-30" action="index.html">
+
+                        <div class="form-group">
+                            <div class="col-12">
+                                @Html.LabelFor(model => model.UserName)
+                                @Html.TextBoxFor(model => model.UserName, htmlAttributes: new { @placeholder = "Username", @class="form-control" })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger font-weight-bold" })<br />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-12">
+                                @Html.LabelFor(model => model.Password)
+                                @Html.PasswordFor(model => model.Password, htmlAttributes: new { @placeholder = "Password", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger font-weight-bold" })<br />
+                            </div>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger font-weight-bold" })
+                        <div class="form-group text-center m-t-20">
+                            <div class="col-12">
+                                <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Đăng nhập</button>
+                            </div>
+                        </div>
+                    </form>
+                }
+
+            </div>
+
+        </div>
+    </div>
+    <!-- END wrapper -->
+    <!-- jQuery  -->
+    <script src="~/Assets/Admin/js/jquery.min.js"></script>
+    <script src="~/Assets/Admin/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Assets/Admin/js/metismenu.min.js"></script>
+    <script src="~/Assets/Admin/js/jquery.slimscroll.js"></script>
+    <script src="~/Assets/Admin/js/waves.min.js"></script>
+
+    <!-- App js -->
+    <script src="~/Assets/Admin/js/app.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+﻿@using DTO
+@model List<Menu>
+@{
+    List<Product> Products = (List<Product>)ViewBag.Products;
+    List<ProductCategory> Submenu = (List<ProductCategory>)ViewBag.Submenu;
+    List<PostCategory> PostCategoey = (List<PostCategory>)ViewBag.PostCategory;
+    List<Post> Post = (List<Post>)ViewBag.Post;
+}
+
+<div class="main-menu menu-common-style menu-lh-1 menu-margin-4 menu-font-3 ml-20 menu-others-page">
+    <nav>
+        <ul>
+            @foreach (var menu in Model)
+            {
+                <li class="angle-shape">
+                    <a href="@menu.Link">@menu.Name</a>
+                    @if (menu.ID == 2)
+                    {
+                        <ul class="submenu">
+                            @foreach (var sub in Submenu)
+                            {
+                                <li>
+                                    <a href="/loai/@sub.Alias/@sub.ID">@sub.Name</a>
+                                    @if (Products.Where(x => x.CategoryID == sub.ID).ToList().Count > 0)
+                                    {
+                                        <ul class="submenu tranright" style="top: 0%">
+                                            @foreach (var supp in Products.Where(x => x.CategoryID == sub.ID).GroupBy(x => x.Supplier))
+                                            {
+                                                if (supp != null)
+                                                {
+                                                    <li><a href="/@sub.Alias/@supp.Key.Name/@sub.ID/@supp.Key.ID">@supp.Key.Name</a></li>
+                                                }
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+
+                            }
+                        </ul>
+                    }
+                    @if (menu.ID == 3)
+                    {
+                        <ul class="submenu">
+                            @foreach (var pc in PostCategoey)
+                            {
+                                <li>
+                                    <a href="#">@pc.Name</a>
+                                    <ul class="submenu tranright" style="top: 0%">
+                                        @foreach (var p in Post.Where(x => x.CategoryID == pc.ID))
+                                        {
+                                            if (p != null)
+                                            {
+                                                <li><a href="@Url.Action("Index", "Post", new { @id = p.ID })">@p.Name</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+
+                            }
+                        </ul>
+                    }
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+

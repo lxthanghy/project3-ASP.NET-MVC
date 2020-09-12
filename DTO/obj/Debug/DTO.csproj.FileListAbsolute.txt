@@ -1,0 +1,12 @@
+D:\LXTHANG_10117004\DTO\bin\Debug\DTO.dll.config
+D:\LXTHANG_10117004\DTO\bin\Debug\DTO.dll
+D:\LXTHANG_10117004\DTO\bin\Debug\DTO.pdb
+D:\LXTHANG_10117004\DTO\bin\Debug\EntityFramework.dll
+D:\LXTHANG_10117004\DTO\bin\Debug\EntityFramework.SqlServer.dll
+D:\LXTHANG_10117004\DTO\bin\Debug\EntityFramework.xml
+D:\LXTHANG_10117004\DTO\bin\Debug\EntityFramework.SqlServer.xml
+D:\LXTHANG_10117004\DTO\obj\Debug\DTO.csprojAssemblyReference.cache
+D:\LXTHANG_10117004\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
+D:\LXTHANG_10117004\DTO\obj\Debug\DTO.csproj.CopyComplete
+D:\LXTHANG_10117004\DTO\obj\Debug\DTO.dll
+D:\LXTHANG_10117004\DTO\obj\Debug\DTO.pdb

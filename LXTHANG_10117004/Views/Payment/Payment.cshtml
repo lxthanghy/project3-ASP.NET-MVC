@@ -1,0 +1,142 @@
+﻿@using LXTHANG_10117004.Models
+@using LXTHANG_10117004.Common;
+@model List<CartItemModel>
+
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/CommonLayout.cshtml";
+    decimal Money = (decimal)ViewBag.Money;
+}
+@section jsFooter
+{
+    <script src="~/Assets/Client/Controllers/PaymentController.js"></script>
+}
+<div class="checkout-main-area pt-90 pb-90">
+    <div class="container">
+        <div class="customer-zone mb-20">
+            @if (Session[CommonConstants.USER_SESSION] == null)
+            {
+                <p class="cart-page-title">Bạn có tài khoản? <a class="checkout-click1" href="#">Click để đăng nhập</a></p>
+                <div class="checkout-login-info">
+                    <p class="text-info">Nếu bạn đã có tài khoản, vui lòng nhập nhập thông tin bên dưới. Nếu bạn là khách hàng mới, vui lòng tiếp tục với phần Thanh toán & Giao hàng</p>
+                    <a class="btn btn-info" href="@Url.Action("Login", "User", new { ReturnUrl = this.Request.RawUrl })">Đăng nhập</a>
+                </div>
+            }
+        </div>
+        <div class="customer-zone mb-20">
+            <p class="cart-page-title">Bạn có chắc chắn với các sản phẩm đã đặt hàng? <a class="checkout-click3" href="#">Click quay lại giỏ hàng</a></p>
+            <div class="checkout-login-info3">
+                <a class="btn btn-info" href="/xem-gio-hang">Quay lại giỏ hàng</a>
+            </div>
+        </div>
+        <div class="checkout-wrap pt-30">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="billing-info-wrap mr-50">
+                        <h3>Chi tiết thanh toán</h3>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-20">
+                                    <label>Họ <abbr class="required" title="required">*</abbr></label>
+                                    <input type="text" id="txtFirstName" class="notnull">
+                                    <label class="text-danger font-weight-bold"></label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-20">
+                                    <label>Tên <abbr class="required" title="required">*</abbr></label>
+                                    <input type="text" id="txtLastName" class="notnull">
+                                    <label class="text-danger font-weight-bold"></label>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="billing-info mb-20">
+                                    <label>Địa chỉ nhận hàng <abbr class="required" title="required">*</abbr></label>
+                                    <input type="text" id="txtAddress" class="notnull">
+                                    <label class="text-danger font-weight-bold"></label>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mb-20">
+                                <div class="billing-info mb-20">
+                                    <label>Tỉnh <abbr class="required" title="required">*</abbr></label>
+                                    <select id="slProvince"></select>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mb-20">
+                                <div class="billing-info mb-20">
+                                    <label>Huyện <abbr class="required" title="required">*</abbr></label>
+                                    <select id="slDistrict"></select>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="billing-info mb-20">
+                                    <label>Xã <abbr class="required" title="required">*</abbr></label>
+                                    <select id="slPrecinct"></select>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="billing-info mb-20">
+                                    <label>Email <abbr class="required" title="required">*</abbr></label>
+                                    <input type="text" id="txtEmail" class="notnull">
+                                    <label class="text-danger font-weight-bold"></label>
+                                </div>
+                                <a class="text-info font-weight-bold" id="btnSendCode">Gửi mã xác thực</a>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="billing-info">
+                                    <label>Mã xác nhận <abbr class="required" title="required">*</abbr></label>
+                                    <input type="text" id="txtCode">
+                                    <label class="font-weight-bold mt-1" style="font-size:16px" id="countDown"></label>
+                                    <label class="text-success font-weight-bold"></label>
+                                </div>
+                                <a class="text-info font-weight-bold" id="btnApplyCode">Xác thực</a>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="billing-info mb-20">
+                                    <label>Điện thoại <abbr class="required" title="required">*</abbr></label>
+                                    <input type="text" id="txtPhone" class="notnull">
+                                    <label class="text-danger font-weight-bold"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="additional-info-wrap">
+                            <label>Ghi chú đơn hàng</label>
+                            <textarea placeholder="Ghi chú" id="txtMessage" name="message"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="your-order-area">
+                        <h3>Đơn hàng của bạn</h3>
+                        <div class="your-order-wrap gray-bg-4">
+                            <div class="your-order-info-wrap">
+                                <div class="your-order-info">
+                                    <ul>
+                                        <li>Sản phẩm <span>Tổng</span></li>
+                                    </ul>
+                                </div>
+                                <div class="your-order-middle">
+                                    <ul>
+                                        @foreach (var item in Model)
+                                        {
+                                            <li>@item.Name X @item.Quantity <span>@(string.Format("{0:#,##0}", item.Price * item.Quantity))</span></li>
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="your-order-info order-total">
+                                    <ul>
+                                        <li>Tổng cộng <span>@(string.Format("{0:#,##0}", Money)) VNĐ</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Place-order mt-40">
+                            <button class="btn btn-outline-danger btn-block" id="btnPayment" type="button">Thanh toán</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

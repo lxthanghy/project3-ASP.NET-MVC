@@ -1,0 +1,126 @@
+﻿@using DTO
+@model List<HomeProduct>
+
+@{
+    Layout = "~/Views/Shared/CommonLayout.cshtml";
+    string strSearch = Convert.ToString(ViewBag.SearchName);
+}
+@section jsFooter
+{
+    <script src="~/Assets/Client/Controllers/SearchHomeController.js"></script>
+}
+<div class="shop-area pt-90 pb-90">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="text-center">KẾT QUẢ TÌM KIẾM THEO '@strSearch.ToUpper()'</h1>
+            </div>
+        </div>
+        <div class="row flex-row-reverse mt-2">
+            <div class="col-lg-9">
+                <div class="shop-topbar-wrapper">
+                    <div class="shop-topbar-left">
+                        <div class="view-mode nav">
+                            <a class="active" href="#shop-1" data-toggle="tab"><i class="la la-th"></i></a>
+                            <a href="#shop-2" data-toggle="tab"><i class="la la-list-ul"></i></a>
+                        </div>
+                        <p>Showing 1 - 20 of 30 results </p>
+                    </div>
+                    <div class="product-sorting-wrapper">
+                        <div class="product-shorting shorting-style">
+                            <label>View:</label>
+                            <select>
+                                <option value=""> 20</option>
+                                <option value=""> 23</option>
+                                <option value=""> 30</option>
+                            </select>
+                        </div>
+                        <div class="product-show shorting-style">
+                            <label>Sort by:</label>
+                            <select>
+                                <option value="">Default</option>
+                                <option value=""> Name</option>
+                                <option value=""> price</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-bottom-area">
+                    <div class="tab-content jump">
+                        <div id="shop-1" class="tab-pane active">
+                            <div class="row">
+                                @foreach (var product in Model)
+                                {
+                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                        <div class="product-wrap mb-35">
+                                            <div class="product-img mb-15">
+                                                <a href="/chi-tiet/@product.Alias/@product.ID"><img src="@product.Image" alt="@product.Name"></a>
+                                                @if (product.Promotion != null)
+                                                {
+                                                    <span class="price-dec">-@product.Promotion%</span>
+                                                }
+                                                <div class="product-action">
+                                                    <a title="Wishlist" href="#"><i class="la la-heart-o"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <span>@product.SupplierName</span>
+                                                <h4><a href="#">@product.Name</a></h4>
+                                                <div class="price-addtocart">
+                                                    <div class="product-price">
+                                                        @if (product.Promotion != null)
+                                                        {
+                                                            <span>@(string.Format("{0:#,##0}", product.NewPrice))</span>
+                                                            <span class="old">@(string.Format("{0:#,##0}", product.OldPrice))</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@(string.Format("{0:#,##0}", product.OldPrice))</span>
+                                                        }
+                                                    </div>
+                                                    <div class="product-addtocart">
+                                                        <a title="Thêm vào giỏ" href="#" class="addToCart" data-id="@product.ID">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="pagination-style text-center">
+                            <ul>
+                                <li><a class="prev" href="#"><i class="la la-angle-left"></i></a></li>
+                                <li><a href="#">01</a></li>
+                                <li><a href="#">02</a></li>
+                                <li><a class="active" href="#">03</a></li>
+                                <li><a href="#">04</a></li>
+                                <li><a href="#">05</a></li>
+                                <li><a href="#">06</a></li>
+                                <li><a class="next" href="#"><i class="la la-angle-right"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="sidebar-wrapper">
+                    <div class="sidebar-widget">
+                        <h4 class="sidebar-title">Tìm kiếm </h4>
+                        <div class="sidebar-search mb-40 mt-20">
+                            <!--Tìm kiếm-->
+                            <form class="sidebar-search-form" action="#">
+                                <input type="text" id="txtHomeSearch" placeholder="Tìm kiếm..." value="@strSearch">
+                                <button id="btnHomeSearch">
+                                    <i class="la la-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

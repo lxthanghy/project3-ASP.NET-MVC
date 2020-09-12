@@ -1,0 +1,78 @@
+﻿@using CaptchaMvc.HtmlHelpers
+@using LXTHANG_10117004.Models
+@model RegisterModel
+
+@{
+    ViewBag.Title = "Trang đăng ký";
+    ViewBag.Page = "Đăng ký";
+    Layout = "~/Views/Shared/CommonLayout.cshtml";
+}
+@section jsFixCapCha
+{
+    <script src="~/Assets/Client/js/vendor/jquery-3.3.1.min.js"></script>
+}
+<div class="login-register-area pt-85 pb-90">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 ml-auto mr-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <a data-toggle="tab" href="#lg2">
+                            <h4>Đăng ký tài khoản</h4>
+                        </a>
+                    </div>
+                    <div class="tab-content">
+                        <div id="lg1" class="tab-pane active">
+                            <div class="login-form-container">
+                                <div class="login-register-form">
+                                    @using (Html.BeginForm("Register", "User", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger font-weight-bold" })
+                                        <form action="#" method="post">
+                                            @Html.LabelFor(model => model.UserName)
+                                            @Html.TextBoxFor(model => model.UserName, htmlAttributes: new { @placeholder = "Username" })
+                                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger font-weight-bold" })<br />
+
+                                            @Html.LabelFor(model => model.Password)
+                                            @Html.PasswordFor(model => model.Password, htmlAttributes: new { @placeholder = "Password" })
+                                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger font-weight-bold" })<br />
+
+                                            @Html.LabelFor(model => model.ConfirmPassword)
+                                            @Html.PasswordFor(model => model.ConfirmPassword, htmlAttributes: new { @placeholder = "Confirm Password" })
+                                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger font-weight-bold" })<br />
+
+                                            @Html.LabelFor(model => model.Name)
+                                            @Html.TextBoxFor(model => model.Name, htmlAttributes: new { @placeholder = "Name" })
+                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger font-weight-bold" })<br />
+
+                                            @Html.LabelFor(model => model.Address)
+                                            @Html.TextAreaFor(model => model.Address, htmlAttributes: new { @placeholder = "Address" })
+                                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger font-weight-bold" })<br />
+
+                                            @Html.LabelFor(model => model.Email)
+                                            @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @placeholder = "Email" })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger font-weight-bold" })<br />
+
+                                            @Html.LabelFor(model => model.Mobile)
+                                            @Html.TextBoxFor(model => model.Mobile, htmlAttributes: new { @placeholder = "Mobile" })
+                                            @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger font-weight-bold" })<br />
+                                            @Html.MathCaptcha()
+                                            <div class="button-box">
+                                                <button type="submit">Đăng ký</button>
+                                            </div>
+                                            <div class="discount-btn default-btn btn-hover mt-3">
+                                                <a class="btn-color-theme btn-size-md-2 btn-style-outline" href="/dang-nhap">Đăng nhập</a>
+                                            </div>
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

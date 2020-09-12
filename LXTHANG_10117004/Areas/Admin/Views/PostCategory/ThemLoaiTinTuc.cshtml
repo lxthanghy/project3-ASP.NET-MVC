@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Thêm loại tin tức";
+    Layout = "~/Areas/Admin/Views/Shared/_HomeLayout.cshtml";
+}
+@section script
+{
+    <script src="~/Assets/Admin/Controllers/AddPostCategory.js"></script>
+}
+<div class="content">
+    <div class="container-fluid">
+        <div class="page-title-box">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-left">
+                        <li class="breadcrumb-item"><a href="#">Stexo</a></li>
+                        <li class="breadcrumb-item active">@ViewBag.Title</li>
+                    </ol>
+                </div>
+            </div> <!-- end row -->
+        </div>
+        <!-- end page-title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-body">
+                        <h4 class="mb-3 pb-3 header-title text-center font-weight-bold">Thêm loại tin tức</h4>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Tên loại tin tức</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" id="txtName">
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Mô tả</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" id="txtDescription">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Ngày thêm</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="txtCreatedDate" placeholder="Ngày thêm">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Người thêm</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="txtCreatedBy" placeholder="Nhập tên">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">Trạng thái</label>
+                            <div class="col-sm-10">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="ckStatus">
+                                    <label class="custom-control-label" for="ckStatus">Active</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">HomeFlag</label>
+                            <div class="col-sm-10">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="ckHomeFlag">
+                                    <label class="custom-control-label" for="ckHomeFlag">Active</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row float-right">
+                            <div></div>
+                            <button type="button" class="btn btn-primary waves-effect waves-light mr-1" id="btnAdd">Thêm</button>
+                            <button type="button" class="btn btn-warning waves-effect m-l-5" id="btnBack">Trở lại</button>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div>
+    <!-- container-fluid -->
+</div>
+

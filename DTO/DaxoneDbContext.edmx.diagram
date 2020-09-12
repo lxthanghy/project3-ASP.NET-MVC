@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="de4a20d034164a2c86c5a19c82cfc236" Name="Diagram1">
+        <EntityTypeShape EntityType="DaxoneDBModel.About" Width="1.5" PointX="7.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.Contact" Width="1.5" PointX="7.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.Feedback" Width="1.5" PointX="9.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.Footer" Width="1.5" PointX="9.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.Menu" Width="1.5" PointX="11.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.Order" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.OrderDetail" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.Post" Width="1.5" PointX="10" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.PostCategory" Width="1.5" PointX="7.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.Product" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.ProductCategory" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.Review" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.Slide" Width="1.5" PointX="5.75" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.Supplier" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.sysdiagram" Width="1.5" PointX="11.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.User" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="DaxoneDBModel.Wishlish" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
+        <AssociationConnector Association="DaxoneDBModel.FK_OrderDetail_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="DaxoneDBModel.FK_OrderDetail_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DaxoneDBModel.FK_Post_PostCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="DaxoneDBModel.FK_Product_ProductCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="DaxoneDBModel.FK_Product_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="DaxoneDBModel.FK_Review_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DaxoneDBModel.FK_Wishlish_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DaxoneDBModel.FK_Review_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DaxoneDBModel.FK_Wishlish_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

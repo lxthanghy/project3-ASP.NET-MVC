@@ -1,0 +1,56 @@
+﻿@using DTO
+@model List<HomeProduct>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/HomeLayout.cshtml";
+}
+
+<div class="product-area pb-60">
+    <div class="container">
+        <div class="section-title text-center mb-40">
+            <h2>Tất cả sản phẩm</h2>
+            <p>Danh sách tất cả các loại sản phẩm có trong cửa hàng</p>
+        </div>
+        <div class="row">
+            @foreach (var product in Model)
+            {
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                    <div class="product-wrap mb-35">
+                        <div class="product-img mb-15">
+                            <a href="/chi-tiet/@product.Alias/@product.ID"><img src="@product.Image" alt="@product.Name"></a>
+                            @if (product.Promotion != null)
+                            {
+                                <span class="price-dec">-@product.Promotion%</span>
+                            }
+                            <div class="product-action">
+                                <a title="Wishlist" href="#"><i class="la la-heart-o"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <span>@product.SupplierName</span>
+                            <h4><a href="#">@product.Name</a></h4>
+                            <div class="price-addtocart">
+                                <div class="product-price">
+
+                                    @if (product.Promotion != null)
+                                    {
+                                        <span>@(string.Format("{0:#,##0}", product.NewPrice))</span>
+                                        <span class="old">@(string.Format("{0:#,##0}", product.OldPrice))</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@(string.Format("{0:#,##0}", product.OldPrice))</span>
+                                    }
+                                </div>
+                                <div class="product-addtocart">
+                                    <a title="Thêm vào giỏ" href="#" class="addToCart" data-id="@product.ID">Thêm vào giỏ</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

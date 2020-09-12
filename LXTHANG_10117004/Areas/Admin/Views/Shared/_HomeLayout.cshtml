@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>@ViewBag.Title</title>
+    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <link rel="shortcut icon" href="~/Assets/Admin/images/favicon.ico">
+
+    <!--Morris Chart CSS -->
+    <link rel="stylesheet" href="~/Assets/Admin/css/morris.css">
+
+    <!-- DataTables -->
+    <link href="~/Assets/Admin/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Assets/Admin/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="~/Assets/Admin/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <!--Sweetalert CSS-->
+    <link href="~/Content/sweetalert2.css" rel="stylesheet" />
+
+    <!-- Magnific popup -->
+    <link href="~/Assets/Admin/css/magnific-popup.css" rel="stylesheet" />
+
+    <link href="~/Assets/Admin/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/Admin/css/metismenu.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/Admin/css/icons.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/Admin/css/style.css" rel="stylesheet" type="text/css">
+
+    <!--PagedList CSS-->
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+
+    <!--Jquery UI-->
+    <link href="~/Assets/Admin/css/jquery-ui.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- Begin page -->
+    <div id="wrapper">
+
+        <!-- Top Bar Start -->
+        @RenderPage("_TopBar.cshtml")
+        <!-- Top Bar End -->
+        <!-- ========== Left Sidebar Start ========== -->
+        @RenderPage("_LeftMenu.cshtml")
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page">
+            <!-- Start content -->
+            @RenderBody()
+            <!-- content -->
+
+            <footer class="footer">
+                © 2019 Daxone <span class="d-none d-sm-inline-block"> - Crafted with <i class="mdi mdi-heart text-danger"></i> by Maxim</span>.
+            </footer>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+
+    </div>
+    <!-- END wrapper -->
+    <!-- jQuery  -->
+    <script src="~/Assets/Admin/js/jquery.min.js"></script>
+    <script src="~/Assets/Admin/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Assets/Admin/js/metismenu.min.js"></script>
+    <script src="~/Assets/Admin/js/jquery.slimscroll.js"></script>
+    <script src="~/Assets/Admin/js/waves.min.js"></script>
+
+    <!--Morris Chart-->
+    @*<script src="~/Assets/Admin/js/morris.min.js"></script>*@
+    <script src="~/Assets/Admin/js/raphael.min.js"></script>
+
+    @*<script src="~/Assets/Admin/pages/dashboard.init.js"></script>*@
+
+    <!-- App js -->
+    <script src="~/Assets/Admin/js/app.js"></script>
+
+    <!--Sweetalert JS-->
+    <script src="~/Scripts/sweetalert2.js"></script>
+
+    <!--CKFinder JS-->
+    <script src="~/Assets/Admin/plugins/ckfinder/ckfinder.js"></script>
+
+    <!--CKEditor JS-->
+    <script src="~/Assets/Admin/plugins/ckeditor/ckeditor.js"></script>
+
+    <!--Jquery UI JS-->
+    <script src="~/Assets/Admin/js/jquery-ui.min.js"></script>
+
+    <!-- Alertify JS -->
+    <script src="~/Scripts/alertify.js"></script>
+    <script src="~/Scripts/alertify-init.js"></script>
+
+    <!--Custom JS-->
+    @RenderSection("script", required: false)
+</body>
+
+</html>

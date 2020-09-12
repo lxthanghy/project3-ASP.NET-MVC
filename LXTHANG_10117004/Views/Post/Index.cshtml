@@ -1,0 +1,9 @@
+﻿@using DTO
+@model Post
+@{
+    ViewBag.Title = "Tin tức";
+    Layout = "~/Views/Shared/CommonLayout.cshtml";
+}
+
+<h2>@Html.Raw(Model.Content)</h2>
+

@@ -1,0 +1,81 @@
+﻿@using DTO
+@model Contact
+@{
+    ViewBag.Title = "Trang liên hệ";
+    ViewBag.Page = "Liên hệ";
+    Layout = "~/Views/Shared/CommonLayout.cshtml";
+}
+@section jsFooter
+{
+    <script src="~/Assets/Client/Controllers/FeedBackController.js"></script>
+}
+<div class="contact-area pt-85 pb-90">
+    <div class="container">
+        <div class="contact-info-wrap mb-50">
+            <h3>Thông tin liên hệ</h3>
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="single-contact-info text-center mb-30">
+                        <i class="ti-location-pin"></i>
+                        <h4>Địa Chỉ</h4>
+                        <p>@Model.Address</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="single-contact-info extra-contact-info text-center mb-30">
+                        <ul>
+                            <li><i class="ti-mobile"></i>@Model.Phone</li>
+                            <li><i class="ti-email"></i> <a href="#">@Model.Email</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="single-contact-info text-center mb-30">
+                        <i class=" ti-alarm-clock"></i>
+                        <h4>Giờ mở cửa</h4>
+                        <p>Thứ hai - Thứ sáu. 9:00am - 5:00pm </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="get-in-touch-wrap">
+            <h3>Liên hệ với chúng tôi</h3>
+            <p>Daxone mong muốn lắng nghe ý kiến của quý khách. Vui lòng gửi mọi yêu cầu, thắc mắc theo thông tin bên dưới, chúng tôi sẽ liên lạc với bạn sớm nhất có thế.</p>
+            <div class="contact-from contact-shadow">
+                <form id="contact-form" method="post">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <input id="txtName" class="notnull" type="text" placeholder="Họ tên">
+                            <label class="text-danger font-weight-bold"></label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input id="txtEmail" class="notnull" type="email" placeholder="Email">
+                            <label class="text-danger font-weight-bold"></label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input id="txtAddress" class="notnull" type="text" placeholder="Địa chỉ">
+                            <label class="text-danger font-weight-bold"></label>
+                        </div>
+                        <div class="col-lg-6">
+                            <input id="nbPhone" class="notnull" type="number" placeholder="Điện thoại">
+                            <label class="text-danger font-weight-bold"></label>
+                        </div>
+                        <div class="col-lg-12">
+                            <textarea id="txtMessage" placeholder="Tin nhắn"></textarea>
+                        </div>
+                        <div class="col-lg-12">
+                            <button class="submit" id="btnSend" type="button">Gửi tin nhắn</button>
+                        </div>
+                    </div>
+                </form>
+                <p class="form-messege"></p>
+            </div>
+        </div>
+        <div class="contact-map pt-90">
+            <div id="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3726.633679664146!2d105.96355676424352!3d20.92705264662009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135af8b74e63503%3A0x909b25eebad8fb54!2zVMOibiBUaeG6v24sIFbEg24gR2lhbmcsIEh1bmcgWWVuLCBWaWV0bmFt!5e0!3m2!1sen!2s!4v1571306459434!5m2!1sen!2s" width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,204 @@
+﻿@using DTO
+@model Product
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/CommonLayout.cshtml";
+    List<string> MoreImages = (List<string>)ViewBag.MoreImages;
+    List<HomeProduct> RelatedProduct = (List<HomeProduct>)ViewBag.RelatedProduct;
+}
+@section jsFooter
+{
+    <script src="~/Assets/Client/Controllers/ReviewController.js"></script>
+}
+<div class="product-details-area pt-90 pb-90">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="product-details-img">
+                    <div class="single-img-gallery zoompro-span mb-30">
+                        <img class="zoompro" src="@Model.Image" data-zoom-image="@Model.Image" alt="@Model.Name" />
+                        @if (Model.Promotion != null)
+                        {
+                            <span>-@Model.Promotion%</span>
+                        }
+                    </div>
+                    @foreach (string src in MoreImages)
+                    {
+                        <div class="single-img-gallery zoompro-span mb-30">
+                            <img class="zoompro" src="@src" data-zoom-image="@src" alt="@Model.Name" />
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 sidebar-active sidebar-active-left">
+                <div class="product-details-content pro-details-content-modify">
+                    <span>@Model.Supplier.Name</span>
+                    <h2>@Model.Name</h2>
+                    <div class="product-ratting-review">
+                        <div class="product-ratting">
+                            <i class="la la-star"></i>
+                            <i class="la la-star"></i>
+                            <i class="la la-star"></i>
+                            <i class="la la-star"></i>
+                            <i class="la la-star-half-o"></i>
+                        </div>
+                        <div class="product-review">
+                            <span>40+ Đánh giá</span>
+                        </div>
+                    </div>
+                    <div class="pro-details-price-wrap">
+                        @if (Model.Promotion != null)
+                        {
+                            double promotion = (double)Model.Promotion / 100;
+                            decimal money = Convert.ToDecimal((double)Model.Price - (double)Model.Price * promotion);
+                            <div class="product-price">
+                                <span>@(string.Format("{0:#,##0}", money)) VNĐ</span>
+                                <span class="old">@(string.Format("{0:#,##0}", Model.Price))</span>
+                            </div>
+                            <div class="dec-rang"><span>- @Model.Promotion%</span></div>
+                        }
+                        else
+                        {
+                            <div class="product-price">
+                                <span>@(string.Format("{0:#,##0}", Model.Price)) VNĐ</span>
+                            </div>
+                        }
+                    </div>
+                    <div class="pro-details-quality">
+                        <div class="cart-plus-minus">
+                            <input class="cart-plus-minus-box" id="txtQuantity" data-id="@Model.ID" type="number" name="qtybutton" value="1">
+                        </div>
+                    </div>
+                    <div class="pro-details-compare-wishlist">
+                        <div class="pro-details-wishlist">
+                            <a title="Thêm vào danh sách yêu thích" href="#"><i class="la la-heart-o"></i>  Thêm vào danh sách yêu thích</a>
+                        </div>
+                    </div>
+                    <div class="pro-details-buy-now btn-hover btn-hover-radious">
+                        <a href="#" id="addToCartV" data-id="@Model.ID">Thêm vào giỏ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="description-review-wrapper pb-90">
+    <div class="container">
+        <div class="row">
+            <div class="ml-auto mr-auto col-lg-10">
+                <div class="dec-review-topbar nav mb-40">
+                    <a data-toggle="tab" href="#des-details1">Mô tả</a>
+                    <a class="active" data-toggle="tab" href="#des-details2">Chi tiết</a>
+                    <a data-toggle="tab" href="#des-details3">Đánh giá</a>
+                </div>
+                <div class="tab-content dec-review-bottom">
+                    <div id="des-details1" class="tab-pane">
+                        <div class="description-wrap">
+                            @if (string.IsNullOrEmpty(Model.Description))
+                            {
+                                <p>Không có mô tả!</p>
+                            }
+                            else
+                            {
+                                <p>@Model.Description</p>
+                            }
+                        </div>
+                    </div>
+                    <div id="des-details2" class="tab-pane active">
+                        <div class="specification-wrap table-responsive">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="width1">Nhà cung cấp</td>
+                                        <td>@Model.Supplier.Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Loại</td>
+                                        <td>@Model.ProductCategory.Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="width1">Tên xe</td>
+                                        <td>@Model.Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="width1">Khung xe</td>
+                                        <td>@Model.Frame</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="width1">Vành xe</td>
+                                        <td>@Model.Rims</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="width1">Lốp xe</td>
+                                        <td>@Model.Tires</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="width1">Trọng lượng</td>
+                                        <td>@Model.Weight</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="width1">Tải trọng</td>
+                                        <td>@Model.Weightlimit</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="des-details3" class="tab-pane">
+                        <div id="reviews"></div>
+                        <div class="mt-3">
+                            <textarea id="txtReview" placeholder="Nhận xét của bạn"></textarea>
+                            <a href="#" class="btn btn-primary float-sm-right" data-id="@Model.ID" id="btnReview">Nhận xét</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="product-area pb-85">
+    <div class="container">
+        <div class="section-title-6 mb-50 text-center">
+            <h2>Sản phẩm liên quan</h2>
+        </div>
+        <div class="product-slider-active owl-carousel">
+            @foreach (var item in RelatedProduct)
+            {
+                <div class="product-wrap">
+                    <div class="product-img mb-15">
+                        <a href="/chi-tiet/@item.Alias/@item.ID"><img src="@item.Image" alt="@item.Name"></a>
+                        @if (item.Promotion != null)
+                        {
+                            <span class="price-dec">-@item.Promotion%</span>
+                        }
+                        <div class="product-action">
+                            <a title="Wishlist" href="#"><i class="la la-heart-o"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <span>@item.SupplierName</span>
+                        <h4><a href="#">@item.Name</a></h4>
+                        <div class="price-addtocart">
+                            <div class="product-price">
+                                @if (item.Promotion != null)
+                                {
+                                    <span>@(string.Format("{0:#,##0}", item.NewPrice))</span>
+                                    <span class="old">@(string.Format("{0:#,##0}", item.OldPrice))</span>
+                                }
+                                else
+                                {
+                                    <span>@(string.Format("{0:#,##0}", item.OldPrice))</span>
+                                }
+                            </div>
+                            <div class="product-addtocart">
+                                <a title="Thêm vào giỏ" href="#" class="addToCart" data-id="@item.ID">Thêm vào giỏ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

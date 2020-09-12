@@ -1,0 +1,117 @@
+﻿@using DTO
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<HomeProduct>
+
+@{
+    Layout = "~/Views/Shared/CommonLayout.cshtml";
+    int pag = ViewBag.Page;
+    int size = ViewBag.PageSize;
+    int total = ViewBag.Total;
+    int from = (pag - 1) * size + 1;
+    int to = (pag * size > total) ? total : pag * size;
+}
+@section jsFooter
+{
+    <script src="~/Assets/Client/Controllers/CategoryShopController.js"></script>
+}
+<div class="shop-area pt-90 pb-90">
+    <div class="container">
+        <div class="row flex-row-reverse">
+            <div class="col-lg-9">
+                <div class="shop-topbar-wrapper">
+                    <div class="shop-topbar-left">
+                        <p>Hiển thị @from - @to trong số @total sản phẩm</p>
+                    </div>
+                    <div class="product-sorting-wrapper">
+                        <div class="product-shorting shorting-style">
+                            <label>Hiển thị:</label>
+                            <input type="hidden" id="txtPageSize" value="@ViewBag.PageSize">
+                            <input type="hidden" id="txtAlias" value="@ViewBag.Alias" />
+                            <input type="hidden" id="txtID" value="@ViewBag.ID"/>
+                            <select id="slPageSize">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                            </select>
+                        </div>
+                        <div class="product-show shorting-style">
+                            <label>Sắp xếp theo:</label>
+                            <input type="hidden" id="txtSort" value="@ViewBag.Sort">
+                            <select id="slSort">
+                                <option value="0">Mặc định</option>
+                                <option value="1"> Giá</option>
+                                <option value="2"> Tên</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-bottom-area">
+                    <div class="tab-content jump">
+                        <div id="shop-1" class="tab-pane active">
+                            <div class="row">
+                                @foreach (var product in Model)
+                                {
+                                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                        <div class="product-wrap mb-35">
+                                            <div class="product-img mb-15">
+                                                <a href="/chi-tiet/@product.Alias/@product.ID"><img src="@product.Image" alt="@product.Name"></a>
+                                                @if (product.Promotion != null)
+                                                {
+                                                    <span class="price-dec">-@product.Promotion%</span>
+                                                }
+                                                <div class="product-action">
+                                                    <a title="Wishlist" href="#"><i class="la la-heart-o"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <span>@product.SupplierName</span>
+                                                <h4><a href="#">@product.Name</a></h4>
+                                                <div class="price-addtocart">
+                                                    <div class="product-price">
+                                                        @if (product.Promotion != null)
+                                                        {
+                                                            <span>@(string.Format("{0:#,##0}", product.NewPrice))</span>
+                                                            <span class="old">@(string.Format("{0:#,##0}", product.OldPrice))</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@(string.Format("{0:#,##0}", product.OldPrice))</span>
+                                                        }
+                                                    </div>
+                                                    <div class="product-addtocart">
+                                                        <a title="Thêm vào giỏ" href="#" class="addToCart" data-id="@product.ID">Thêm vào giỏ</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-sm-12 text-center">
+                                    @Html.PagedListPager(Model, page => Url.Action("CategoryShop", new { id = ViewBag.ID, page, size = ViewBag.PageSize, searchName = ViewBag.SearchName, sort = ViewBag.Sort }))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="sidebar-wrapper">
+                    <div class="sidebar-widget">
+                        <h4 class="sidebar-title">Tìm kiếm </h4>
+                        <div class="sidebar-search mb-40 mt-20">
+                            <form class="sidebar-search-form" action="#">
+                                <input type="text" placeholder="Tìm kiếm..." id="txtSearch" value="@ViewBag.SearchName">
+                                <button id="btnSearch">
+                                    <i class="la la-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+D:\LXTHANG_10117004\Utility\bin\Debug\Utility.dll
+D:\LXTHANG_10117004\Utility\bin\Debug\Utility.pdb
+D:\LXTHANG_10117004\Utility\obj\Debug\Utility.csprojAssemblyReference.cache
+D:\LXTHANG_10117004\Utility\obj\Debug\Utility.csproj.CoreCompileInputs.cache
+D:\LXTHANG_10117004\Utility\obj\Debug\Utility.dll
+D:\LXTHANG_10117004\Utility\obj\Debug\Utility.pdb

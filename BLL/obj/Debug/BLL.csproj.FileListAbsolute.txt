@@ -1,0 +1,17 @@
+D:\LXTHANG_10117004\BLL\bin\Debug\BLL.dll
+D:\LXTHANG_10117004\BLL\bin\Debug\BLL.pdb
+D:\LXTHANG_10117004\BLL\bin\Debug\DAL.dll
+D:\LXTHANG_10117004\BLL\bin\Debug\DTO.dll
+D:\LXTHANG_10117004\BLL\bin\Debug\Utility.dll
+D:\LXTHANG_10117004\BLL\bin\Debug\EntityFramework.dll
+D:\LXTHANG_10117004\BLL\bin\Debug\DAL.pdb
+D:\LXTHANG_10117004\BLL\bin\Debug\DAL.dll.config
+D:\LXTHANG_10117004\BLL\bin\Debug\DTO.pdb
+D:\LXTHANG_10117004\BLL\bin\Debug\DTO.dll.config
+D:\LXTHANG_10117004\BLL\bin\Debug\Utility.pdb
+D:\LXTHANG_10117004\BLL\bin\Debug\EntityFramework.xml
+D:\LXTHANG_10117004\BLL\obj\Debug\BLL.csprojAssemblyReference.cache
+D:\LXTHANG_10117004\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+D:\LXTHANG_10117004\BLL\obj\Debug\BLL.csproj.CopyComplete
+D:\LXTHANG_10117004\BLL\obj\Debug\BLL.dll
+D:\LXTHANG_10117004\BLL\obj\Debug\BLL.pdb

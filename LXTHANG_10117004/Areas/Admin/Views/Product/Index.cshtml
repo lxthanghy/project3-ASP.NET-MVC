@@ -1,0 +1,407 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using DTO
+@model IPagedList<Product>
+
+@{
+    ViewBag.Title = "Quản lý sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_HomeLayout.cshtml";
+    List<SupplierLoadOption> lstSupplier = ViewBag.lstSupplier;
+    List<ProductCategoryLoadOption> lstProductCategory = ViewBag.lstProductCategory;
+    int pag = ViewBag.Page;
+    int size = ViewBag.PageSize;
+    int total = ViewBag.Total;
+    int from = (pag - 1) * size + 1;
+    int to = (pag * size > total) ? total : pag * size;
+}
+<style>
+    .mfp-wrap.mfp-gallery.mfp-close-btn-in.mfp-auto-cursor.mfp-img-mobile.mfp-ready {
+        z-index: 9999;
+    }
+
+    .mfp-bg {
+        z-index: 9999;
+    }
+</style>
+@section script
+{
+    <!-- Magnific popup JS -->
+    <script src="~/Assets/Admin/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Assets/Admin/js/lightbox.js"></script>
+    <script src="~/Assets/Admin/Controllers/ProductController.js"></script>
+}
+<div class="content">
+    <div class="container-fluid">
+        <div class="page-title-box">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-left">
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
+                        <li class="breadcrumb-item active">@ViewBag.Title</li>
+                    </ol>
+                </div>
+            </div> <!-- end row -->
+        </div>
+        <!-- end page-title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-body" style="padding:0">
+                        <h4 class="mt-0 header-title">Danh sách nhà cung cấp</h4>
+                        <p class="sub-title">
+                            Danh sách các nhà cung cấp có trong hệ thống.
+                        </p>
+                        <div id="datatable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="dataTables_length" id="datatable_length">
+                                        <label>
+                                            <span>Hiển thị </span>
+                                            <input type="hidden" id="txtPageSize" value="@ViewBag.PageSize">
+                                            <input type="hidden" id="txtPage" value="@ViewBag.Page">
+                                            <select class="form-control form-control-sm" id="slPageSize">
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                            </select>
+                                            <span> hàng</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div id="datatable_filter" class="dataTables_filter">
+                                        <label>
+                                            <span>Tìm kiếm:</span><input type="search" class="form-control form-control-sm" id="txtSearch" placeholder="">
+                                            <a href="#" class="btn btn-primary waves-effect waves-light ti-search btn-lg" id="btnSearch"></a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="button" id="btnAdd" class="btn btn-primary waves-effect waves-light mb-2" data-toggle="modal" data-target="#modalAddEdit"><i class="text-white mdi mdi-plus"></i> Thêm mới</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="datatable" class="table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline" style="border-collapse: collapse; border-spacing: 0px; width: 100%;" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên</th>
+                                                <th>Ảnh</th>
+                                                <th>Giá</th>
+                                                <th>Số lượng</th>
+                                                <th>Trạng thái</th>
+                                                <th>HomeFlag</th>
+                                                <th>HotFlag</th>
+                                                <th>Lượt xem</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@item.Name</td>
+                                                    <td>
+                                                        <img class="" src="@item.Image" alt="" height="64">
+                                                    </td>
+                                                    <td>@(string.Format("{0:#,##0}", item.Price))</td>
+                                                    <td>@item.Quantity</td>
+                                                    <td>
+                                                        @if (item.Status)
+                                                        {
+                                                            <span class="badge badge-success">Active</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge badge-danger">Locked</span>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (item.HomeFlag)
+                                                        {
+                                                            <span class="badge badge-success">Active</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge badge-danger">Locked</span>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @if (item.HotFlag)
+                                                        {
+                                                            <span class="badge badge-success">Active</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="badge badge-danger">Locked</span>
+                                                        }
+                                                    </td>
+                                                    <td>@item.ViewCount</td>
+                                                    <td>
+                                                        <a href="#" class="mdi mdi-information font-20 text-primary btnInfo" data-toggle="modal" data-target="#modalInfo" data-id="@item.ID"></a>
+                                                        <a href="#" class="mdi mdi-pencil font-20 text-secondary btnEdit" data-toggle="modal" data-target="#modalAddEdit" data-id="@item.ID"></a>
+                                                        <a href="#" class="mdi mdi-window-close font-20 text-danger btnDelete" data-id="@item.ID"></a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mt-1">
+                                <p>Hiển thị @from đến @to trong số @total bản ghi</p>
+                            </div>
+                            <div class="col-sm-12 text-center">
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, size = ViewBag.PageSize, loadPage = ViewBag.LoadPage, searchName = ViewBag.SearchName }))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end col -->
+    </div> <!-- end row -->
+</div>
+
+<div id="modalAddEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Tên</label>
+                    <input type="hidden" id="hiddenID" value="0" />
+                    <input type="text" class="form-control notnull" id="txtName" placeholder="Nhập tên">
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Ảnh</label>
+                    <input type="text" class="form-control notnull" id="txtImage" placeholder="Đường dẫn ảnh">
+                    <span class="text-danger"></span>
+                    <button type="button" class="btn btn-secondary mt-1" id="btnChooseImg">Chọn ảnh</button>
+                </div>
+                <div class="form-group">
+                    <p>Ảnh chi tiết</p>
+                    <div class="listImages">
+                    </div>
+                    <button type="button" class="btn btn-secondary mt-1" id="btnTest">Test</button>
+                    <button type="button" class="btn btn-secondary mt-1" id="btnChooseMoreImg">Thêm ảnh</button>
+                </div>
+                <div class="form-group">
+                    <label>Mô tả</label>
+                    <textarea class="form-control" id="txtDescription" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Thông số khung</label>
+                    <textarea class="form-control notnull" id="txtFrame" rows="3"></textarea>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Thông số vành</label>
+                    <textarea class="form-control notnull" id="txtRims" rows="3"></textarea>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Thông số lốp</label>
+                    <textarea class="form-control notnull" id="txtTires" rows="3"></textarea>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Trọng lượng</label>
+                    <textarea class="form-control notnull" id="txtWeight" rows="3"></textarea>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Tải trọng tối đa</label>
+                    <textarea class="form-control notnull" id="txtWeightLimit" rows="3"></textarea>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Giá</label>
+                    <input type="number" class="form-control notnull" id="txtPrice" placeholder="Nhập giá">
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Khuyến mãi (%)</label>
+                    <input type="number" class="form-control" id="txtPromotion" placeholder="Nhập khuyến mãi">
+                </div>
+                <div class="form-group">
+                    <label>Số lượng</label>
+                    <input type="number" class="form-control" id="txtQuantity" placeholder="Nhập số lượng" value="1">
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Loại sản phẩm</label>
+                    <select class="form-control" id="slCategory">
+                        @foreach (var item in lstProductCategory)
+                        {
+                            <option value="@item.ID">@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Nhà cung cấp</label>
+                    <select class="form-control" id="slSupplier">
+                        @foreach (var item in lstSupplier)
+                        {
+                            <option value="@item.ID">@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Người thêm</label>
+                    <input type="text" class="form-control" id="txtCreatedBy" placeholder="Nhập tên">
+                </div>
+                <div class="form-group">
+                    <label>Ngày thêm</label>
+                    <input type="text" class="form-control" id="txtCreatedDate" placeholder="Ngày thêm">
+                </div>
+                <div class="form-group">
+                    <label>Người sửa</label>
+                    <input type="text" class="form-control" id="txtModifiedBy" placeholder="Nhập tên">
+                </div>
+                <div class="form-group">
+                    <label>Ngày sửa</label>
+                    <input type="text" class="form-control" id="txtModifiedDate"placeholder="Ngày sửa">
+                </div>
+                <div class="form-group">
+                    <label>Trạng thái</label>
+                    <div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="ckStatus">
+                            <label class="custom-control-label" for="ckStatus">Active</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>HomeFlag</label>
+                    <div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="ckHomeFlag">
+                            <label class="custom-control-label" for="ckHomeFlag">Active</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>HotFlag</label>
+                    <div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="ckHotFlag">
+                            <label class="custom-control-label" for="ckHotFlag">Active</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light" id="btnSave"></button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<div id="modalInfo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myModalLabel">Thông tin sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Tên:</label>
+                    <span id="txtNameInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label class="d-block">Ảnh</label>
+                    <img id="txtImageInfo" src="" alt="" width="450">
+                </div>
+                <div class="form-group">
+                    <label class="d-block">Ảnh chi tiết</label>
+                    <div class="popup-gallery d-block" id="lstImage">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="form-group">
+                    <label>Mô tả:</label>
+                    <span id="txtDescriptionInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Thông số khung:</label>
+                    <span id="txtFrameInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Thông số vành:</label>
+                    <span id="txtRimsInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Thông số lốp:</label>
+                    <span id="txtTiresInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Trọng lượng:</label>
+                    <span id="txtWeightInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Tải trọng tối đa:</label>
+                    <span id="txtWeightLimitInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Giá:</label>
+                    <span id="txtPriceInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Khuyến mãi (%):</label>
+                    <span id="txtPromotionInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Số lượng:</label>
+                    <span id="txtQuantityInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Loại sản phẩm:</label>
+                    <span id="txtCategoryInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Nhà cung cấp:</label>
+                    <span id="txtSupplierInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Người thêm:</label>
+                    <span id="txtCreatedByInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Ngày thêm:</label>
+                    <span id="txtCreatedDateInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Người sửa:</label>
+                    <span id="txtModifiedByInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Ngày sửa:</label>
+                    <span id="txtModifiedDateInfo"></span>
+                </div>
+                <div class="form-group">
+                    <label>Lượt xem:</label>
+                    <span id="txtViewCountInfo"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Đóng</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
